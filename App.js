@@ -9,7 +9,7 @@ const Content = ({ data }) => [
 
 const App = ({ data }) => (
     <div>
-        <h1>React Experiment</h1>
+        <h1>React Static Content Experiment</h1>
         {"This is wrapped in <StaticContent>:"}
         <div style={{background: 'rgba(0, 0, 255, .15)'}}>
             <StaticContent>
@@ -21,7 +21,7 @@ const App = ({ data }) => (
             <li>Rehydration doesn't clear content</li>
         </ul>
         <hr/>
-        {'This is a regular <div>:'}
+        {'This is wrapped in a regular <div>:'}
         <div style={{background: 'rgba(255, 0, 0, .15)'}}>
             <Content data={data}/>
         </div>
