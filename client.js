@@ -1,8 +1,8 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
+import RenderIdProvider from './components/RenderIdProvider';
 import App from './App';
 
-import RenderIdProvider from './RenderIdProvider';
 hydrate( 
     <RenderIdProvider>
         <App/>

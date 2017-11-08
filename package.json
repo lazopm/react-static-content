@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node --inspect server.js",
-    "watch": "webpack --watch"
+    "start": "webpack && PORT=3344 babel-node server.js"
   },
   "author": "",
   "license": "ISC",

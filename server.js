@@ -1,15 +1,16 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import RenderIdProvider from './RenderIdProvider';
+import RenderIdProvider from './components/RenderIdProvider';
 import App from './App';
 
+const PORT = process.env.PORT;
 const app = express();
 app.use('/assets', express.static('build'));
 app.get('/', (req, res) => {
     const html = renderToString(
         <RenderIdProvider server>
-            <App data={`server only data ${Math.random()}`}/>
+            <App data={`server generated ${Math.random()}`}/>
         </RenderIdProvider>
     );
     res.send(`
@@ -21,4 +22,6 @@ app.get('/', (req, res) => {
         </html>
     `);
 });
-app.listen(3333)
+app.listen(PORT, '0.0.0.0', () =>
+    console.log(`Serving on port ${PORT}`)
+);
