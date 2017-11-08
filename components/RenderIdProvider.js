@@ -10,6 +10,9 @@ class RenderIdProvider extends Component {
         this.store = [];
     }
     getId() {
+        //generates a unique id for each root StaticContent node.
+        //since the values are pedictable, as long as react traverses the tree
+        //in the same order in the client and server they will match
         const id = uuidv5(String(this.store.length), seed);
         this.store.push(id);
         return id;
