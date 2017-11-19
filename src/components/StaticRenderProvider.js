@@ -12,21 +12,31 @@ class StaticRenderProvider extends Component {
         this.cache = {};
     }
     getMarkup(renderID) {
+        if (renderID in this.cache) {
+            return this.cache[renderID];
+        }
         const node = document.querySelector(
             `[data-render-id="${renderID}"`
         );
         if (!node) {
-            //raise error
+            //raise warning
             return null;
         }
         return node.innerHTML;
+    }
+    cacheMarkup(renderID, markup) {
+        if (renderID in this.cache) {
+            return;
+        }
+        this.cache[renderID] = markup;
     }
     render() {
         return Children.only(this.props.children)
     }
     getChildContext() {
         return {
-            [CONTEXT_GET_ID]: this.getID.bind(this),
+            [CONTEXT_GET_MARKUP]: this.getMarkup.bind(this), 
+            [CONTEXT_CACHE_MARKUP]: this.cacheMarkup.bind(this),
             [CONTEXT_IS_SERVER]: this.props.server,
         }
     }
@@ -37,7 +47,8 @@ StaticRenderProvider.defaultProps = {
 };
 
 StaticRenderProvider.childContextTypes = {
-    [CONTEXT_GET_ID]: PropTypes.func,
+    [CONTEXT_GET_MARKUP]: PropTypes.func,
+    [CONTEXT_CACHE_MARKUP]: PropTypes.func,
     [CONTEXT_IS_SERVER]: PropTypes.bool,
 }
 
