@@ -1,7 +1,7 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import RenderIdProvider from './components/RenderIdProvider';
+import StaticRenderProvider from './components/StaticRenderProvider';
 import App from './App';
 
 const PORT = process.env.PORT;
@@ -9,9 +9,9 @@ const app = express();
 app.use('/assets', express.static('build'));
 app.get('/', (req, res) => {
     const html = renderToString(
-        <RenderIdProvider server>
+        <StaticRenderProvider server>
             <App data={`server generated ${Math.random()}`}/>
-        </RenderIdProvider>
+        </StaticRenderProvider>
     );
     res.send(`
         <html>

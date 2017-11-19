@@ -4,29 +4,34 @@ import PropTypes from 'prop-types';
 class StaticContent extends Component {
     constructor(props, context) {
         super();
-        const renderId = !context.isStaticChild && context.getRenderId();
-        this.state = { renderId };
-        if (context.isClient) {
-            this.state.markup = document.querySelector(`[data-render-id="${renderId}"`).innerHTML;
-            this.shouldComponentUpdate = () => false;
-        }
+        const renderID = !context.isStaticChild && context.getID();
+        this.state = {
+            renderID, 
+            markup: !context.isServer
+                && document.querySelector(
+                    `[data-render-id="${renderID}"`
+                ).innerHTML
+        };
+    }
+    shouldComponentUpdate() {
+        return false;
     }
     getChildContext() {
-        return {
-            isStaticChild: true,
-        }
+        return { isStaticChild: true };
     }
     render() {
-        const props = this.state.renderId && { 'data-render-id': this.state.renderId };
-        return this.context.isClient ? (
-            <div
-                {...props}
-                dangerouslySetInnerHTML={{__html: this.state.markup}}
-            />
-        ) : (
+        const props = this.state.renderID && { 'data-render-id': this.state.renderID };
+        return this.context.isServer ? (
             <div {...props}>
                 {this.props.children}
             </div>
+        ) : (
+            <div
+                {...props}
+                dangerouslySetInnerHTML={{
+                    __html: this.state.markup
+                }}
+            />
         );
     }
 }
@@ -36,8 +41,8 @@ StaticContent.childContextTypes = {
 };
 
 StaticContent.contextTypes = {
-    getRenderId: PropTypes.func,
-    isClient: PropTypes.bool,
+    getID: PropTypes.func,
+    isServer: PropTypes.bool,
     isStaticChild: PropTypes.bool,
 };
 

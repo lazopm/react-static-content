@@ -1,11 +1,11 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-import RenderIdProvider from './components/RenderIdProvider';
+import StaticRenderProvider from './components/StaticRenderProvider';
 import App from './App';
 
 hydrate( 
-    <RenderIdProvider>
+    <StaticRenderProvider>
         <App/>
-    </RenderIdProvider>,
+    </StaticRenderProvider>,
     document.getElementById('root'),
 );
