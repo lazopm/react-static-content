@@ -19,7 +19,7 @@ rollup({
         }),
         resolve(),
         commonjs(),
-        uglify({}, minify),
+        //uglify({}, minify),
     ],
 }).then(bundle => bundle.write({
     format: 'cjs',
