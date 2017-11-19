@@ -5,7 +5,7 @@ import {
     CONTEXT_CACHE_MARKUP,
     CONTEXT_IS_SERVER,
     CONTEXT_IS_STATIC_CHILD,
-} from '../symbols';
+} from '../constants';
 
 class StaticContent extends Component {
     constructor(props, context) {

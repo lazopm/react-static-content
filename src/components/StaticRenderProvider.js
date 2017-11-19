@@ -4,7 +4,7 @@ import {
     CONTEXT_GET_MARKUP,
     CONTEXT_CACHE_MARKUP,
     CONTEXT_IS_SERVER,
-} from '../symbols';
+} from '../constants';
 
 class StaticRenderProvider extends Component {
     constructor() {
