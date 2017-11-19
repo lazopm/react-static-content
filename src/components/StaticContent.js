@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    CONTEXT_GET_ID,
+    CONTEXT_GET_MARKUP,
+    CONTEXT_CACHE_MARKUP,
     CONTEXT_IS_SERVER,
     CONTEXT_IS_STATIC_CHILD,
 } from '../symbols';
@@ -9,24 +10,16 @@ import {
 class StaticContent extends Component {
     constructor(props, context) {
         super();
-        const renderID = !context[CONTEXT_IS_STATIC_CHILD] && context[CONTEXT_GET_ID]();
+        const renderID = !context[CONTEXT_IS_STATIC_CHILD] && props.renderID;
         this.state = {
             renderID, 
-            markup: !context[CONTEXT_IS_SERVER] && this.findMarkup(renderID),
+            markup: !context[CONTEXT_IS_SERVER] && context[CONTEXT_GET_MARKUP](renderID),
         };
         if (!context[CONTEXT_IS_SERVER]) {
             this.shouldComponentUpdate = () => false;
+            this.componentWillUnmount = () => 
+                this.context[CONTEXT_CACHE_MARKUP](renderID, this.state.markup);
         }
-    }
-    findMarkup(renderID) {
-        const node = document.querySelector(
-            `[data-render-id="${renderID}"`
-        );
-        if (!node) {
-            //raise error
-            return null;
-        }
-        return node.innerHTML
     }
     getChildContext() {
         return { isStaticChild: true };
@@ -52,7 +45,8 @@ StaticContent.childContextTypes = {
 };
 
 StaticContent.contextTypes = {
-    [CONTEXT_GET_ID]: PropTypes.func,
+    [CONTEXT_GET_MARKUP]: PropTypes.func,
+    [CONTEXT_CACHE_MARKUP]: PropTypes.func,
     [CONTEXT_IS_SERVER]: PropTypes.bool,
     [CONTEXT_IS_STATIC_CHILD]: PropTypes.bool,
 };

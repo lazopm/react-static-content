@@ -5,7 +5,7 @@ rehydrate server rendered static content without the data
 //server
 ReactDOMServer.renderToString(
     <StaticRenderProvider server>
-        <StaticContent>
+        <StaticContent renderID="big-table">
             <Table data={giantDataObject} />
         </StaticContent>
     </StaticRenderProvider>
@@ -14,7 +14,7 @@ ReactDOMServer.renderToString(
 //client
 ReactDOM.rehydrate(
     <StaticRenderProvider>
-        <StaticContent>
+        <StaticContent renderID="big-table">
             <Table data={null} />
         </StaticContent>
     </StaticRenderProvider>,

@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/bundle.js",
   "scripts": {
-    "start": "node scripts/build.js"
+    "build": "node scripts/build.js"
   },
   "repository": {
     "type": "git",
@@ -13,8 +13,10 @@
   "author": "Pablo Lazo <lazopm@gmail.com> (lazopm.com)",
   "license": "ISC",
   "dependencies": {
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0"
+    "prop-types": "^15.6.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -22,13 +24,13 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "express": "^4.16.2",
+    "react": "^16.1.1",
     "react-dom": "^16.0.0",
     "rollup": "^0.51.8",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^2.0.1",
-    "uglify-es": "^3.1.10",
-    "uuid": "^3.1.0"
+    "uglify-es": "^3.1.10"
   }
 }
