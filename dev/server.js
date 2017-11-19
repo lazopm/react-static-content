@@ -13,14 +13,9 @@ app.get('/', (req, res) => {
             <App data={`server generated ${Math.random()}`}/>
         </StaticRenderProvider>
     );
-    res.send(`
-        <html>
-            <body>
-                <div id="root">${html}</div>
-                <script src="/assets/app.bundle.js"></script>
-            </body>
-        </html>
-    `);
+    res.send(
+        `<html><body><div id="root">${html}</div><script src="/assets/app.bundle.js"></script></body></html>`
+    );
 });
 app.listen(PORT, '0.0.0.0', () =>
     console.log(`Serving on port ${PORT}`)

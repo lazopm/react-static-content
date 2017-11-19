@@ -1,6 +1,7 @@
 import React, { Component, Children } from "react";
 import PropTypes from 'prop-types';
 import uuidv5 from 'uuid/v5';
+import { CONTEXT_GET_ID, CONTEXT_IS_SERVER } from '../symbols';
 
 const seed = "90123e1c-7512-523e-bb28-76fab9f2f73d";
 
@@ -22,8 +23,8 @@ class StaticRenderProvider extends Component {
     }
     getChildContext() {
         return {
-            getID: this.getID.bind(this),
-            isServer: this.props.server,
+            [CONTEXT_GET_ID]: this.getID.bind(this),
+            [CONTEXT_IS_SERVER]: this.props.server,
         }
     }
 }
@@ -33,8 +34,8 @@ StaticRenderProvider.defaultProps = {
 };
 
 StaticRenderProvider.childContextTypes = {
-    getID: PropTypes.func,
-    isServer: PropTypes.bool,
+    [CONTEXT_GET_ID]: PropTypes.func,
+    [CONTEXT_IS_SERVER]: PropTypes.bool,
 }
 
 export default StaticRenderProvider;
